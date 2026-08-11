@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)https://dgoergen78.github.io/LF9/bit/BitUebungen.html -->
-<html lang="de"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="de">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bit für Bit — Vom Schalter zum Subnetz</title>
-<link rel="preconnect" href="https://fonts.googleapis.com/">
-<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-<link href="./bituebungen_files/css2" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#0B0E16;
@@ -26,6 +26,10 @@
     --accent-dim:#1F3B4E;
     --danger:#E8564A;
     --danger-dim:#4A211D;
+    --teal:#4DD9BE;
+    --teal-dim:#154A40;
+    --purple:#B18AE8;
+    --purple-dim:#3A2A52;
     --radius-s:6px;
     --radius-m:12px;
     --font-display:'Space Grotesk',sans-serif;
@@ -221,13 +225,18 @@
   }
   .note strong{ color:var(--text); }
 
-  /* ---------- Level 3/4: Adressraster ---------- */
-  .addrgrid{
-    display:grid; grid-template-columns:repeat(16,1fr); gap:2px; margin-top:22px;
-    max-width:420px; margin-left:auto; margin-right:auto;
+  /* ---------- Level 3/4: Binärwand ---------- */
+  .binwall{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:5px;
+    margin:22px auto 0; max-width:260px;
   }
-  .addrgrid.addrgrid-sm{ grid-template-columns:repeat(4,1fr); max-width:200px; gap:4px; }
-  .addrgrid .cell{ aspect-ratio:1; border-radius:1px; transition:background .2s; }
+  .binwall.compact{ grid-template-columns:repeat(16,1fr); gap:3px; max-width:560px; }
+  .bin-cell{
+    font-family:var(--font-mono); font-weight:600; border-radius:5px;
+    padding:9px 4px; font-size:13px; letter-spacing:0.02em; text-align:center;
+    transition:background .2s, color .2s;
+  }
+  .binwall.compact .bin-cell{ font-size:0; padding:0; aspect-ratio:1; border-radius:2px; }
   .netbits-row{ display:flex; justify-content:center; margin-top:24px; }
   .task-box{
     background:var(--panel-2); border:1px solid var(--line); border-radius:var(--radius-s);
@@ -266,6 +275,7 @@
     .switch{ width:36px; height:60px; }
     .bit{ width:44px; }
     .readout{ gap:18px; }
+    .binwall.compact{ grid-template-columns:repeat(16,1fr); max-width:280px; }
   }
 </style>
 </head>
@@ -275,18 +285,18 @@
   <div class="rail-inner">
     <span class="rail-brand">◈ Bit für Bit</span>
     <div class="rail-leds" id="railLeds">
-      <a href="https://dgoergen78.github.io/LF9/bit/BitUebungen.html#level1" class="rail-led" data-level="1"><span class="dot"></span>Level 1</a>
-      <a href="https://dgoergen78.github.io/LF9/bit/BitUebungen.html#level2" class="rail-led" data-level="2"><span class="dot"></span>Level 2</a>
-      <a href="https://dgoergen78.github.io/LF9/bit/BitUebungen.html#level3" class="rail-led" data-level="3"><span class="dot"></span>Level 3</a>
-      <a href="https://dgoergen78.github.io/LF9/bit/BitUebungen.html#level4" class="rail-led" data-level="4"><span class="dot"></span>Level 4</a>
+      <a href="#level1" class="rail-led" data-level="1"><span class="dot"></span>Level 1</a>
+      <a href="#level2" class="rail-led" data-level="2"><span class="dot"></span>Level 2</a>
+      <a href="#level3" class="rail-led" data-level="3"><span class="dot"></span>Level 3</a>
+      <a href="#level4" class="rail-led" data-level="4"><span class="dot"></span>Level 4</a>
     </div>
   </div>
 </nav>
 
 <header class="hero wrap">
-  <p class="eyebrow">Binär Übungen</p>
-  <h1>Übungen</h1>
- </header>
+  <p class="eyebrow">Ein interaktiver Kurs in vier Stationen</p>
+  <h1>Binär-Übungen</h1>
+</header>
 
 <!-- INTRO: freies Erkunden -->
 <section class="module wrap" id="intro">
@@ -297,7 +307,7 @@
   </div>
   <div class="panel">
     <h2 class="sr-only">Interaktives 8-Bit-Schaltpult mit Live-Dezimalwert</h2>
-    <div class="bitpanel" id="introPanel"><div class="bit"><span class="bit-value">128</span><button class="switch" type="button" aria-label="Bit 8, Stellenwert 128"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value">64</span><button class="switch" type="button" aria-label="Bit 7, Stellenwert 64"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value">32</span><button class="switch" type="button" aria-label="Bit 6, Stellenwert 32"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value">16</span><button class="switch" type="button" aria-label="Bit 5, Stellenwert 16"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value">8</span><button class="switch" type="button" aria-label="Bit 4, Stellenwert 8"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value">4</span><button class="switch" type="button" aria-label="Bit 3, Stellenwert 4"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value">2</span><button class="switch" type="button" aria-label="Bit 2, Stellenwert 2"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value">1</span><button class="switch" type="button" aria-label="Bit 1, Stellenwert 1"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div></div>
+    <div class="bitpanel" id="introPanel"></div>
     <div class="readout">
       <div class="readout-item">
         <div class="readout-label">Binär</div>
@@ -336,7 +346,7 @@
       <button class="btn" id="l1Reset">Neue Zahl</button>
     </div>
     <p class="feedback" id="l1Feedback">Verbleibender Bereich: 0 – 255. Möglichkeiten: 256.</p>
-    <div class="bitpanel" id="l1Panel" style="margin-top:22px; opacity:0.85;"><div class="bit"><span class="bit-value">128</span><button class="switch" type="button" aria-label="Bit 8, Stellenwert 128" disabled=""><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value">64</span><button class="switch" type="button" aria-label="Bit 7, Stellenwert 64" disabled=""><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value">32</span><button class="switch" type="button" aria-label="Bit 6, Stellenwert 32" disabled=""><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value">16</span><button class="switch" type="button" aria-label="Bit 5, Stellenwert 16" disabled=""><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value">8</span><button class="switch" type="button" aria-label="Bit 4, Stellenwert 8" disabled=""><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value">4</span><button class="switch" type="button" aria-label="Bit 3, Stellenwert 4" disabled=""><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value">2</span><button class="switch" type="button" aria-label="Bit 2, Stellenwert 2" disabled=""><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value">1</span><button class="switch" type="button" aria-label="Bit 1, Stellenwert 1" disabled=""><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div></div>
+    <div class="bitpanel" id="l1Panel" style="margin-top:22px; opacity:0.85;"></div>
     <div class="stat-row">
       <div class="stat"><div class="stat-n" id="l1Tries">0</div><div class="stat-l">Versuche</div></div>
       <div class="stat"><div class="stat-n" id="l1Poss">256</div><div class="stat-l">Noch möglich</div></div>
@@ -356,9 +366,9 @@
     <h2 class="sr-only">Tresor-Rätsel: Acht Kippschalter müssen auf eine vorgegebene Zielzahl eingestellt werden</h2>
     <div style="text-align:center; margin-bottom:6px;">
       <span style="font-family:var(--font-mono); font-size:13px; color:var(--text-faint);">Code <span id="l2Round">1</span> / 3 — Zielzahl</span>
-      <div style="font-family:var(--font-mono); font-size:34px; font-weight:600; color:var(--bit-off); margin-top:4px;" id="l2Target">187</div>
+      <div style="font-family:var(--font-mono); font-size:34px; font-weight:600; color:var(--bit-off); margin-top:4px;" id="l2Target">—</div>
     </div>
-    <div class="bitpanel" id="l2Panel" style="margin-top:18px;"><div class="bit"><span class="bit-value">128</span><button class="switch" type="button" aria-label="Bit 8, Stellenwert 128"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value">64</span><button class="switch" type="button" aria-label="Bit 7, Stellenwert 64"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value">32</span><button class="switch" type="button" aria-label="Bit 6, Stellenwert 32"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value">16</span><button class="switch" type="button" aria-label="Bit 5, Stellenwert 16"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value">8</span><button class="switch" type="button" aria-label="Bit 4, Stellenwert 8"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value">4</span><button class="switch" type="button" aria-label="Bit 3, Stellenwert 4"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value">2</span><button class="switch" type="button" aria-label="Bit 2, Stellenwert 2"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value">1</span><button class="switch" type="button" aria-label="Bit 1, Stellenwert 1"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div></div>
+    <div class="bitpanel" id="l2Panel" style="margin-top:18px;"></div>
     <div class="row">
       <button class="btn primary" id="l2Check">Tresor prüfen</button>
     </div>
@@ -390,15 +400,15 @@
       <div class="task-progress" id="l3TaskProgress">Aufgabe 1 von 3</div>
     </div>
     <div class="netbits-row">
-      <div class="bitpanel" id="l3Panel"><div class="bit"><span class="bit-value"></span><button class="switch" type="button" aria-label="Bit 4, Stellenwert 8"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value"></span><button class="switch" type="button" aria-label="Bit 3, Stellenwert 4"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value"></span><button class="switch" type="button" aria-label="Bit 2, Stellenwert 2"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value"></span><button class="switch" type="button" aria-label="Bit 1, Stellenwert 1"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div></div>
+      <div class="bitpanel" id="l3Panel"></div>
     </div>
     <div class="row" style="margin-top:8px;">
       <button class="btn" id="l3ResetBits">Grenze zurücksetzen</button>
       <button class="btn primary" id="l3Check">Aufteilung prüfen</button>
     </div>
     <p class="feedback" id="l3Feedback">Klick auf einen Schalter — alle Schalter bis dorthin legen die Grenze fest.</p>
-    <div class="addrgrid addrgrid-sm" id="l3Grid" role="img" aria-label="16 einzelne Werte, farblich nach Abschnitt gruppiert"><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div></div>
-    <div class="ranges" id="l3Ranges"><span class="range-chip" style="background: var(--bit-on-dim); color: var(--bit-on);">0–15</span></div>
+    <div class="binwall" id="l3Grid" role="img" aria-label="16 einzelne Werte als Binärzahlen, farblich nach Abschnitt gruppiert"></div>
+    <div class="ranges" id="l3Ranges"></div>
     <div class="stat-row">
       <div class="stat"><div class="stat-n" id="l3MaskBin">0000</div><div class="stat-l">Muster (binär)</div></div>
       <div class="stat"><div class="stat-n" id="l3MaskDec">0</div><div class="stat-l">Muster (dezimal)</div></div>
@@ -422,15 +432,15 @@
       <div class="task-progress" id="l4TaskProgress">Aufgabe 1 von 3</div>
     </div>
     <div class="netbits-row">
-      <div class="bitpanel" id="l4Panel"><div class="bit"><span class="bit-value"></span><button class="switch" type="button" aria-label="Bit 8, Stellenwert 128"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value"></span><button class="switch" type="button" aria-label="Bit 7, Stellenwert 64"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value"></span><button class="switch" type="button" aria-label="Bit 6, Stellenwert 32"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value"></span><button class="switch" type="button" aria-label="Bit 5, Stellenwert 16"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value"></span><button class="switch" type="button" aria-label="Bit 4, Stellenwert 8"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value"></span><button class="switch" type="button" aria-label="Bit 3, Stellenwert 4"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value"></span><button class="switch" type="button" aria-label="Bit 2, Stellenwert 2"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div><div class="bit"><span class="bit-value"></span><button class="switch" type="button" aria-label="Bit 1, Stellenwert 1"><div class="thumb"></div></button><span class="bit-state off">0</span><div class="bit-label"></div></div></div>
+      <div class="bitpanel" id="l4Panel"></div>
     </div>
     <div class="row" style="margin-top:8px;">
       <button class="btn" id="l4ResetBits">Grenze zurücksetzen</button>
       <button class="btn primary" id="l4Check">Aufteilung prüfen</button>
     </div>
     <p class="feedback" id="l4Feedback">Klick auf einen Schalter — alle Schalter bis dorthin legen die Grenze fest.</p>
-    <div class="addrgrid" id="l4Grid" role="img" aria-label="256 einzelne Werte, farblich nach Abschnitt gruppiert"><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div><div class="cell" style="background: var(--bit-on-dim);"></div></div>
-    <div class="ranges" id="l4Ranges"><span class="range-chip" style="background: var(--bit-on-dim); color: var(--bit-on);">0–255</span></div>
+    <div class="binwall compact" id="l4Grid" role="img" aria-label="256 einzelne Werte, farblich nach Abschnitt gruppiert"></div>
+    <div class="ranges" id="l4Ranges"></div>
     <div class="stat-row">
       <div class="stat"><div class="stat-n" id="l4MaskBin">00000000</div><div class="stat-l">Muster (binär)</div></div>
       <div class="stat"><div class="stat-n" id="l4MaskDec">0</div><div class="stat-l">Muster (dezimal)</div></div>
@@ -552,6 +562,25 @@ function createBitPanel(container, opts){
   };
 }
 
+var GROUP_PALETTE = [
+  {bg:'var(--bit-on-dim)', fg:'var(--bit-on)'},
+  {bg:'var(--bit-off-dim)', fg:'var(--bit-off)'},
+  {bg:'var(--accent-dim)', fg:'var(--accent)'},
+  {bg:'var(--danger-dim)', fg:'var(--danger)'},
+  {bg:'var(--teal-dim)', fg:'var(--teal)'},
+  {bg:'var(--purple-dim)', fg:'var(--purple)'}
+];
+
+function groupColor(i){
+  return GROUP_PALETTE[i % GROUP_PALETTE.length];
+}
+
+function bin(v, totalBits){
+  var s = v.toString(2);
+  while(s.length < totalBits) s = '0' + s;
+  return s;
+}
+
 function computeRanges(totalBits, n){
   var total = Math.pow(2, totalBits);
   var segCount = Math.pow(2, n);
@@ -571,10 +600,24 @@ function renderRangeChips(containerEl, totalBits, n){
   for(var i=0;i<ranges.length;i++){
     var chip = el('span','range-chip');
     chip.textContent = ranges[i][0] === ranges[i][1] ? String(ranges[i][0]) : (ranges[i][0] + '–' + ranges[i][1]);
-    var isEven = i % 2 === 0;
-    chip.style.background = isEven ? 'var(--bit-on-dim)' : 'var(--bit-off-dim)';
-    chip.style.color = isEven ? 'var(--bit-on)' : 'var(--bit-off)';
+    var c = groupColor(i);
+    chip.style.background = c.bg;
+    chip.style.color = c.fg;
     containerEl.appendChild(chip);
+  }
+}
+
+function renderBinWall(containerEl, cellEls, totalBits, n, showText){
+  if(showText === undefined) showText = true;
+  var total = Math.pow(2, totalBits);
+  var partCount = Math.pow(2, n);
+  var perPart = total / partCount;
+  for(var i=0;i<total;i++){
+    var group = Math.floor(i / perPart);
+    var c = groupColor(group);
+    cellEls[i].style.background = c.bg;
+    cellEls[i].style.color = c.fg;
+    cellEls[i].textContent = showText ? bin(i, totalBits) : '';
   }
 }
 
@@ -744,8 +787,7 @@ var l3Ranges = document.getElementById('l3Ranges');
 var l3Feedback = document.getElementById('l3Feedback');
 
 for(var gi=0; gi<L3_TOTAL; gi++){
-  var cell3 = el('div','cell');
-  cell3.style.background = 'var(--panel-2)';
+  var cell3 = el('span','bin-cell');
   l3Grid.appendChild(cell3);
 }
 var l3Cells = l3Grid.children;
@@ -768,11 +810,7 @@ function l3Render(){
   l3Nets.textContent = partCount;
   l3PerNet.textContent = perPart;
 
-  for(var i=0;i<L3_TOTAL;i++){
-    var group = Math.floor(i / perPart);
-    var color = (group % 2 === 0) ? 'var(--bit-on-dim)' : 'var(--bit-off-dim)';
-    l3Cells[i].style.background = color;
-  }
+  renderBinWall(l3Grid, l3Cells, L3_BITS, n);
   renderRangeChips(l3Ranges, L3_BITS, n);
 }
 l3Render();
@@ -828,8 +866,7 @@ var l4Ranges = document.getElementById('l4Ranges');
 var l4Feedback = document.getElementById('l4Feedback');
 
 for(var gj=0; gj<L4_TOTAL; gj++){
-  var cell4 = el('div','cell');
-  cell4.style.background = 'var(--panel-2)';
+  var cell4 = el('span','bin-cell');
   l4Grid.appendChild(cell4);
 }
 var l4Cells = l4Grid.children;
@@ -852,11 +889,7 @@ function l4Render(){
   l4Nets.textContent = partCount;
   l4PerNet.textContent = perPart;
 
-  for(var i=0;i<L4_TOTAL;i++){
-    var group = Math.floor(i / perPart);
-    var color = (group % 2 === 0) ? 'var(--bit-on-dim)' : 'var(--bit-off-dim)';
-    l4Cells[i].style.background = color;
-  }
+  renderBinWall(l4Grid, l4Cells, L4_BITS, n, false);
   renderRangeChips(l4Ranges, L4_BITS, n);
 }
 l4Render();
@@ -896,6 +929,5 @@ l4LoadTask();
 
 })();
 </script>
-
-
-</body></html>
+</body>
+</html>
