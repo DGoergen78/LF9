@@ -225,40 +225,6 @@
   }
   .note strong{ color:var(--text); }
 
-  /* ---------- Level 3/4: Binärwand ---------- */
-  .binwall{
-    display:grid; grid-template-columns:repeat(4,1fr); gap:5px;
-    margin:22px auto 0; max-width:260px;
-  }
-  .binwall.compact{ grid-template-columns:repeat(16,1fr); gap:3px; max-width:560px; }
-  .bin-cell{
-    font-family:var(--font-mono); font-weight:600; border-radius:5px;
-    padding:9px 4px; font-size:13px; letter-spacing:0.02em; text-align:center;
-    transition:background .2s, color .2s;
-  }
-  .binwall.compact .bin-cell{ font-size:0; padding:0; aspect-ratio:1; border-radius:2px; }
-  .netbits-row{ display:flex; justify-content:center; margin-top:24px; }
-  .task-box{
-    background:var(--panel-2); border:1px solid var(--line); border-radius:var(--radius-s);
-    padding:16px 18px; margin-bottom:6px; text-align:center;
-  }
-  .task-box .task-text{ font-size:15px; color:var(--text); }
-  .task-box .task-progress{ font-family:var(--font-mono); font-size:11px; color:var(--text-faint); margin-top:6px; }
-
-  .ranges{ display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-top:18px; }
-  .range-chip{
-    font-family:var(--font-mono); font-size:12px; font-weight:600;
-    padding:5px 11px; border-radius:20px;
-  }
-
-  /* ---------- Level 4 ---------- */
-  .dual{ display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:8px; }
-  @media (max-width:640px){ .dual{ grid-template-columns:1fr; } }
-  .dual h3{ font-family:var(--font-mono); font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-faint); text-align:center; margin:0 0 12px; }
-  .given-ip{ text-align:center; margin-bottom:26px; }
-  .given-ip .ip-value{ font-family:var(--font-mono); font-size:22px; font-weight:600; color:var(--accent); }
-  .given-ip .ip-sub{ font-size:13px; color:var(--text-dim); margin-top:4px; }
-
   footer{ padding:40px 0 80px; border-top:1px solid var(--line); color:var(--text-faint); font-size:13px; }
   footer a{ color:var(--text-dim); }
 
@@ -275,7 +241,6 @@
     .switch{ width:36px; height:60px; }
     .bit{ width:44px; }
     .readout{ gap:18px; }
-    .binwall.compact{ grid-template-columns:repeat(16,1fr); max-width:280px; }
   }
 </style>
 </head>
@@ -288,13 +253,12 @@
       <a href="#level1" class="rail-led" data-level="1"><span class="dot"></span>Level 1</a>
       <a href="#level2" class="rail-led" data-level="2"><span class="dot"></span>Level 2</a>
       <a href="#level3" class="rail-led" data-level="3"><span class="dot"></span>Level 3</a>
-      <a href="#level4" class="rail-led" data-level="4"><span class="dot"></span>Level 4</a>
     </div>
   </div>
 </nav>
 
 <header class="hero wrap">
-  <p class="eyebrow">Ein interaktiver Kurs in vier Stationen</p>
+  <p class="eyebrow">Ein interaktiver Kurs in drei Stationen</p>
   <h1>Binär-Übungen</h1>
 </header>
 
@@ -386,72 +350,42 @@
   </div>
 </section>
 
-<!-- LEVEL 3: Bereiche einteilen (4 Bit) -->
+<!-- LEVEL 3: Minimale Bitanzahl -->
 <section class="module wrap" id="level3">
   <div class="module-head">
-    <p class="module-tag"><span class="num">3</span>Level 3 — Bereiche einteilen, 4 Bit</p>
-    <h2>Ein kleiner Bereich wird zerlegt</h2>
-    <p class="module-desc">Mit 4 Bit lassen sich die Zahlen 0 bis 15 darstellen. Klick auf einen Schalter, um festzulegen, wie viele Bits von links die Grenze bestimmen — darunter siehst du sofort, in welche Zahlenbereiche der Bereich zerfällt.</p>
+    <p class="module-tag"><span class="num">3</span>Level 3 — Rückwärts denken</p>
+    <h2>Wie viele Bits brauche ich mindestens?</h2>
+    <p class="module-desc">Diesmal ist nicht der Wert gesucht, sondern die Bitanzahl selbst. Du bekommst eine Mindestanzahl an Werten vorgegeben — leg mit den Schaltern fest, wie viele Bits du brauchst, um sie alle darstellen zu können. Nicht mehr, aber auch nicht weniger.</p>
   </div>
   <div class="panel">
-    <h2 class="sr-only">Interaktive Aufteilung eines Zahlenbereichs von 16 Werten mit 4 Bit in gleich große Abschnitte, mit Anzeige der jeweiligen Zahlenbereiche</h2>
+    <h2 class="sr-only">Aufgabe zur minimalen Bitanzahl: Vorgegeben ist eine Mindestanzahl an darzustellenden Werten, gesucht ist die kleinste ausreichende Bitanzahl</h2>
     <div class="task-box">
-      <div class="task-text" id="l3TaskText">Teile den Bereich in <strong>2</strong> gleich große Teile auf.</div>
+      <div class="task-text" id="l3TaskText">Du willst mindestens <strong>10</strong> verschiedene Werte darstellen können.</div>
       <div class="task-progress" id="l3TaskProgress">Aufgabe 1 von 3</div>
     </div>
     <div class="netbits-row">
       <div class="bitpanel" id="l3Panel"></div>
     </div>
-    <div class="row" style="margin-top:8px;">
-      <button class="btn" id="l3ResetBits">Grenze zurücksetzen</button>
-      <button class="btn primary" id="l3Check">Aufteilung prüfen</button>
-    </div>
-    <p class="feedback" id="l3Feedback">Klick auf einen Schalter — alle Schalter bis dorthin legen die Grenze fest.</p>
-    <div class="binwall" id="l3Grid" role="img" aria-label="16 einzelne Werte als Binärzahlen, farblich nach Abschnitt gruppiert"></div>
-    <div class="ranges" id="l3Ranges"></div>
-    <div class="stat-row">
-      <div class="stat"><div class="stat-n" id="l3MaskBin">0000</div><div class="stat-l">Muster (binär)</div></div>
-      <div class="stat"><div class="stat-n" id="l3MaskDec">0</div><div class="stat-l">Muster (dezimal)</div></div>
-      <div class="stat"><div class="stat-n" id="l3Nets">1</div><div class="stat-l">Teile (2ⁿ)</div></div>
-      <div class="stat"><div class="stat-n" id="l3PerNet">16</div><div class="stat-l">Werte / Teil</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- LEVEL 4: Bereiche einteilen (8 Bit) -->
-<section class="module wrap" id="level4">
-  <div class="module-head">
-    <p class="module-tag"><span class="num">4</span>Level 4 — Bereiche einteilen, 8 Bit</p>
-    <h2>Ein großer Bereich wird zerlegt</h2>
-    <p class="module-desc">Jetzt das Gleiche mit einem vollen Byte: 8 Bit stellen die Zahlen 0 bis 255 dar. Das Prinzip aus Level 3 bleibt exakt gleich — nur die Zahlenbereiche werden größer.</p>
-  </div>
-  <div class="panel">
-    <h2 class="sr-only">Interaktive Aufteilung eines Zahlenbereichs von 256 Werten mit 8 Bit in gleich große Abschnitte, mit Anzeige der jeweiligen Zahlenbereiche</h2>
-    <div class="task-box">
-      <div class="task-text" id="l4TaskText">Teile den Bereich in <strong>2</strong> gleich große Teile auf.</div>
-      <div class="task-progress" id="l4TaskProgress">Aufgabe 1 von 3</div>
-    </div>
-    <div class="netbits-row">
-      <div class="bitpanel" id="l4Panel"></div>
+    <div class="readout">
+      <div class="readout-item">
+        <div class="readout-label">Damit darstellbar</div>
+        <div class="readout-value accent" id="l3Capacity">2⁰ = 1</div>
+      </div>
     </div>
     <div class="row" style="margin-top:8px;">
-      <button class="btn" id="l4ResetBits">Grenze zurücksetzen</button>
-      <button class="btn primary" id="l4Check">Aufteilung prüfen</button>
+      <button class="btn" id="l3ResetBits">Zurücksetzen</button>
+      <button class="btn primary" id="l3Check">Prüfen</button>
     </div>
-    <p class="feedback" id="l4Feedback">Klick auf einen Schalter — alle Schalter bis dorthin legen die Grenze fest.</p>
-    <div class="binwall compact" id="l4Grid" role="img" aria-label="256 einzelne Werte, farblich nach Abschnitt gruppiert"></div>
-    <div class="ranges" id="l4Ranges"></div>
+    <p class="feedback" id="l3Feedback">Klick auf einen Schalter — alle Schalter bis dorthin zählen mit.</p>
     <div class="stat-row">
-      <div class="stat"><div class="stat-n" id="l4MaskBin">00000000</div><div class="stat-l">Muster (binär)</div></div>
-      <div class="stat"><div class="stat-n" id="l4MaskDec">0</div><div class="stat-l">Muster (dezimal)</div></div>
-      <div class="stat"><div class="stat-n" id="l4Nets">1</div><div class="stat-l">Teile (2ⁿ)</div></div>
-      <div class="stat"><div class="stat-n" id="l4PerNet">256</div><div class="stat-l">Werte / Teil</div></div>
+      <div class="stat"><div class="stat-n" id="l3Attempts">0</div><div class="stat-l">Prüfversuche</div></div>
+      <div class="stat"><div class="stat-n" id="l3Solved">0 / 3</div><div class="stat-l">Gelöst</div></div>
     </div>
   </div>
 </section>
 
 <footer class="wrap">
-  <p>Das ist genau das Prinzip hinter IPv4-Subnetting: Eine Adresse hat 32 Bit — vier Achter-Blöcke wie in Level 4. Je mehr führende Bits als Grenze dienen, desto mehr, aber kleinere Netze entstehen.</p>
+  <p>Jedes Bit halbiert den verbleibenden Raum — beim Raten genauso wie beim Setzen. Und: Je mehr Werte man darstellen will, desto mehr Bits braucht man — genau diese Überlegung entscheidet später, wie groß ein Subnetz sein muss.</p>
 </footer>
 
 <script>
@@ -560,71 +494,6 @@ function createBitPanel(container, opts){
     setBoundaryN: function(n){ boundaryN = n; render(); },
     setInteractive: function(v){ interactive = v; render(); }
   };
-}
-
-var GROUP_PALETTE = [
-  {bg:'var(--bit-on-dim)', fg:'var(--bit-on)'},
-  {bg:'var(--bit-off-dim)', fg:'var(--bit-off)'},
-  {bg:'var(--accent-dim)', fg:'var(--accent)'},
-  {bg:'var(--danger-dim)', fg:'var(--danger)'},
-  {bg:'var(--teal-dim)', fg:'var(--teal)'},
-  {bg:'var(--purple-dim)', fg:'var(--purple)'}
-];
-
-function groupColor(i){
-  return GROUP_PALETTE[i % GROUP_PALETTE.length];
-}
-
-function bin(v, totalBits){
-  var s = v.toString(2);
-  while(s.length < totalBits) s = '0' + s;
-  return s;
-}
-
-function computeRanges(totalBits, n){
-  var total = Math.pow(2, totalBits);
-  var segCount = Math.pow(2, n);
-  var segSize = total / segCount;
-  var ranges = [];
-  for(var i=0;i<segCount;i++){
-    var start = i*segSize;
-    var end = start + segSize - 1;
-    ranges.push([start, end]);
-  }
-  return ranges;
-}
-
-function renderRangeChips(containerEl, totalBits, n){
-  containerEl.innerHTML = '';
-  var ranges = computeRanges(totalBits, n);
-  for(var i=0;i<ranges.length;i++){
-    var chip = el('span','range-chip');
-    chip.textContent = ranges[i][0] === ranges[i][1] ? String(ranges[i][0]) : (ranges[i][0] + '–' + ranges[i][1]);
-    var c = groupColor(i);
-    chip.style.background = c.bg;
-    chip.style.color = c.fg;
-    containerEl.appendChild(chip);
-  }
-}
-
-function renderBinWall(containerEl, cellEls, totalBits, n, showText){
-  if(showText === undefined) showText = true;
-  var total = Math.pow(2, totalBits);
-  var partCount = Math.pow(2, n);
-  var perPart = total / partCount;
-  for(var i=0;i<total;i++){
-    var group = Math.floor(i / perPart);
-    var c = groupColor(group);
-    cellEls[i].style.background = c.bg;
-    cellEls[i].style.color = c.fg;
-    cellEls[i].textContent = showText ? bin(i, totalBits) : '';
-  }
-}
-
-function bin8(v){
-  var s = v.toString(2);
-  while(s.length < 8) s = '0' + s;
-  return s;
 }
 
 /* ---------------- Fortschritts-LEDs ---------------- */
@@ -769,163 +638,75 @@ document.getElementById('l2Check').addEventListener('click', function(){
 });
 l2LoadRound();
 
-/* ---------------- LEVEL 3: Bereiche einteilen, 4 Bit ---------------- */
-var L3_BITS = 4;
-var L3_TOTAL = Math.pow(2, L3_BITS);
+/* ---------------- LEVEL 3: Minimale Bitanzahl ---------------- */
+var SUPERSCRIPTS = ['⁰','¹','²','³','⁴','⁵','⁶','⁷','⁸'];
 var l3Tasks = [
-  {text:'Teile den Bereich in <strong>2</strong> gleich große Teile auf.', n:1},
-  {text:'Teile den Bereich in <strong>4</strong> gleich große Teile auf.', n:2},
-  {text:'Teile den Bereich in <strong>8</strong> gleich große Teile auf.', n:3}
+  {target:10},
+  {target:50},
+  {target:200}
 ];
 var l3TaskIdx = 0;
-var l3Grid = document.getElementById('l3Grid');
-var l3MaskBin = document.getElementById('l3MaskBin');
-var l3MaskDec = document.getElementById('l3MaskDec');
-var l3Nets = document.getElementById('l3Nets');
-var l3PerNet = document.getElementById('l3PerNet');
-var l3Ranges = document.getElementById('l3Ranges');
+var l3Attempts = 0;
+var l3SolvedCount = 0;
 var l3Feedback = document.getElementById('l3Feedback');
-
-for(var gi=0; gi<L3_TOTAL; gi++){
-  var cell3 = el('span','bin-cell');
-  l3Grid.appendChild(cell3);
-}
-var l3Cells = l3Grid.children;
+var l3Capacity = document.getElementById('l3Capacity');
 
 var l3Panel = createBitPanel(document.getElementById('l3Panel'), {
-  mode:'boundary', boundaryN:0, showValueLabels:false, bitCount:L3_BITS,
-  onChange:function(){ l3Render(); }
+  mode:'boundary', boundaryN:0, showValueLabels:false, bitCount:8,
+  onChange:function(){ l3RenderCapacity(); }
 });
 
-function l3Render(){
+function l3RenderCapacity(){
   var n = l3Panel.getBoundaryN();
-  var maskBinStr = '';
-  for(var i=0;i<L3_BITS;i++){ maskBinStr += i < n ? '1' : '0'; }
-  var maskDecVal = n === 0 ? 0 : parseInt(maskBinStr, 2);
-  var partCount = Math.pow(2, n);
-  var perPart = L3_TOTAL / partCount;
-
-  l3MaskBin.textContent = maskBinStr;
-  l3MaskDec.textContent = maskDecVal;
-  l3Nets.textContent = partCount;
-  l3PerNet.textContent = perPart;
-
-  renderBinWall(l3Grid, l3Cells, L3_BITS, n);
-  renderRangeChips(l3Ranges, L3_BITS, n);
+  var cap = Math.pow(2, n);
+  l3Capacity.textContent = '2' + SUPERSCRIPTS[n] + ' = ' + cap;
 }
-l3Render();
+l3RenderCapacity();
 
 function l3LoadTask(){
   var t = l3Tasks[l3TaskIdx];
-  document.getElementById('l3TaskText').innerHTML = t.text;
+  document.getElementById('l3TaskText').innerHTML = 'Du willst mindestens <strong>' + t.target + '</strong> verschiedene Werte darstellen können.';
   document.getElementById('l3TaskProgress').textContent = 'Aufgabe ' + (l3TaskIdx+1) + ' von ' + l3Tasks.length;
+  l3Panel.setBoundaryN(0);
+  l3RenderCapacity();
   l3Feedback.className = 'feedback';
-  l3Feedback.textContent = 'Klick auf einen Schalter — alle Schalter bis dorthin legen die Grenze fest.';
+  l3Feedback.textContent = 'Klick auf einen Schalter — alle Schalter bis dorthin zählen mit.';
 }
 
 document.getElementById('l3ResetBits').addEventListener('click', function(){
   l3Panel.setBoundaryN(0);
-  l3Render();
+  l3RenderCapacity();
 });
 
 document.getElementById('l3Check').addEventListener('click', function(){
+  l3Attempts++;
+  document.getElementById('l3Attempts').textContent = l3Attempts;
   var n = l3Panel.getBoundaryN();
   var t = l3Tasks[l3TaskIdx];
-  if(n === t.n){
+  var cap = Math.pow(2, n);
+  var capPrev = n > 0 ? Math.pow(2, n-1) : 0;
+
+  if(cap < t.target){
+    l3Feedback.className = 'feedback err';
+    l3Feedback.textContent = 'Das reicht nicht — mit ' + n + ' Bit' + (n===1?'':'s') + ' kannst du nur ' + cap + ' Werte darstellen. Du brauchst mindestens ' + t.target + '.';
+  } else if(n > 0 && capPrev >= t.target){
+    l3Feedback.className = 'feedback up';
+    l3Feedback.textContent = 'Das reicht, aber es geht sparsamer — mit einem Bit weniger wärst du auch schon bei genug Werten.';
+  } else {
+    l3SolvedCount++;
+    document.getElementById('l3Solved').textContent = l3SolvedCount + ' / 3';
     l3Feedback.className = 'feedback win';
     if(l3TaskIdx < l3Tasks.length - 1){
-      l3Feedback.textContent = 'Richtig! Nächste Aufgabe …';
+      l3Feedback.textContent = 'Richtig! Mit ' + n + ' Bits erreichst du genau ' + cap + ' mögliche Werte. Nächste Aufgabe …';
       l3TaskIdx++;
-      setTimeout(l3LoadTask, 1400);
+      setTimeout(l3LoadTask, 1600);
     } else {
-      l3Feedback.textContent = 'Alle Aufgaben gelöst! Mehr Grenzbits = mehr, aber kleinere Teile.';
+      l3Feedback.textContent = 'Richtig! Mit ' + n + ' Bits erreichst du genau ' + cap + ' mögliche Werte. Alle drei Aufgaben gelöst!';
       markDone(3);
     }
-  } else {
-    l3Feedback.className = 'feedback err';
-    l3Feedback.textContent = 'Noch nicht — mit ' + n + ' Grenzbit' + (n===1?'':'s') + ' entstehen ' + Math.pow(2,n) + ' Teile. Versuch es nochmal.';
   }
 });
 l3LoadTask();
-
-/* ---------------- LEVEL 4: Bereiche einteilen, 8 Bit ---------------- */
-var L4_BITS = 8;
-var L4_TOTAL = Math.pow(2, L4_BITS);
-var l4Tasks = [
-  {text:'Teile den Bereich in <strong>2</strong> gleich große Teile auf.', n:1},
-  {text:'Teile den Bereich in <strong>4</strong> gleich große Teile auf.', n:2},
-  {text:'Jeder Teilbereich soll höchstens <strong>32</strong> Werte enthalten.', n:3}
-];
-var l4TaskIdx = 0;
-var l4Grid = document.getElementById('l4Grid');
-var l4MaskBin = document.getElementById('l4MaskBin');
-var l4MaskDec = document.getElementById('l4MaskDec');
-var l4Nets = document.getElementById('l4Nets');
-var l4PerNet = document.getElementById('l4PerNet');
-var l4Ranges = document.getElementById('l4Ranges');
-var l4Feedback = document.getElementById('l4Feedback');
-
-for(var gj=0; gj<L4_TOTAL; gj++){
-  var cell4 = el('span','bin-cell');
-  l4Grid.appendChild(cell4);
-}
-var l4Cells = l4Grid.children;
-
-var l4Panel = createBitPanel(document.getElementById('l4Panel'), {
-  mode:'boundary', boundaryN:0, showValueLabels:false, bitCount:L4_BITS,
-  onChange:function(){ l4Render(); }
-});
-
-function l4Render(){
-  var n = l4Panel.getBoundaryN();
-  var maskBinStr = '';
-  for(var i=0;i<L4_BITS;i++){ maskBinStr += i < n ? '1' : '0'; }
-  var maskDecVal = n === 0 ? 0 : parseInt(maskBinStr, 2);
-  var partCount = Math.pow(2, n);
-  var perPart = L4_TOTAL / partCount;
-
-  l4MaskBin.textContent = maskBinStr;
-  l4MaskDec.textContent = maskDecVal;
-  l4Nets.textContent = partCount;
-  l4PerNet.textContent = perPart;
-
-  renderBinWall(l4Grid, l4Cells, L4_BITS, n, false);
-  renderRangeChips(l4Ranges, L4_BITS, n);
-}
-l4Render();
-
-function l4LoadTask(){
-  var t = l4Tasks[l4TaskIdx];
-  document.getElementById('l4TaskText').innerHTML = t.text;
-  document.getElementById('l4TaskProgress').textContent = 'Aufgabe ' + (l4TaskIdx+1) + ' von ' + l4Tasks.length;
-  l4Feedback.className = 'feedback';
-  l4Feedback.textContent = 'Klick auf einen Schalter — alle Schalter bis dorthin legen die Grenze fest.';
-}
-
-document.getElementById('l4ResetBits').addEventListener('click', function(){
-  l4Panel.setBoundaryN(0);
-  l4Render();
-});
-
-document.getElementById('l4Check').addEventListener('click', function(){
-  var n = l4Panel.getBoundaryN();
-  var t = l4Tasks[l4TaskIdx];
-  if(n === t.n){
-    l4Feedback.className = 'feedback win';
-    if(l4TaskIdx < l4Tasks.length - 1){
-      l4Feedback.textContent = 'Richtig! Nächste Aufgabe …';
-      l4TaskIdx++;
-      setTimeout(l4LoadTask, 1400);
-    } else {
-      l4Feedback.textContent = 'Alle Aufgaben gelöst! Genau das ist Subnetting im Kleinen.';
-      markDone(4);
-    }
-  } else {
-    l4Feedback.className = 'feedback err';
-    l4Feedback.textContent = 'Noch nicht — mit ' + n + ' Grenzbit' + (n===1?'':'s') + ' entstehen ' + Math.pow(2,n) + ' Teile. Versuch es nochmal.';
-  }
-});
-l4LoadTask();
 
 })();
 </script>
